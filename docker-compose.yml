@@ -1,0 +1,45 @@
+version: "3.9"
+
+x-deploy: &deploy-section
+  mode: replicated
+  replicas: 1
+  restart_policy:
+    condition: any
+    max_attempts: 3
+    delay: 5s
+    window: 30s
+  update_config:
+    parallelism: 2
+    delay: 5s
+    failure_action: rollback
+    order: stop-first
+  rollback_config:
+    parallelism: 2
+    delay: 5s
+    failure_action: pause
+    order: stop-first
+
+x-logging: &logging-section
+  driver: "json-file"
+  options:
+    max-size: 10m
+    max-file: "3"
+    tag: frontend_alibaba
+
+services:
+  frontend_alibaba:
+    image: ${VER} # Make sure VER is defined in your environment or .env file
+    ports:
+      - "7020:3000" # React app will be accessible on port 7020 (host) and 3000 (container)
+      - "7021:3001" # JSON server will be accessible on port 7021 (host) and 3001 (container)
+    deploy:
+      <<: *deploy-section
+    networks:
+      - production
+    logging:
+      <<: *logging-section
+
+networks:
+  production:
+    driver: overlay
+    attachable: true

@@ -1,0 +1,24 @@
+{
+  "hotels": [
+    {
+      "id": 1,
+      "name": "Homa",
+      "description": "Tehran Homa Hotel, one of the most prestigious five-star hotels in the capital ...",
+      "location": {
+        "long": 51.40495,
+        "lat": 35.761889
+      },
+      "stars": 5
+    },
+    {
+      "id": 2,
+      "name": "Espinas Palace Hotel",
+      "description": "The Palace features all the amenities and services of a luxury five-star hotel coupled with attraction and a unique feel-at-home atmosphere",
+      "location": {
+        "long": 51.356415,
+        "lat": 35.793057
+      },
+      "stars": 5
+    }
+  ]
+}
